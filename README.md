@@ -15,6 +15,6 @@ The other three chains are very similar to the first one. The only difference is
 
 The new Alumni collection is the union of the old alumni and the newGraduates, and the new students collection is the union of the four grades.
 
-But the newly added freshmen do not have the grade property. This can be added by checking the grade property of all students and assign freshmen to those with undefined grade property. But with the _.defaults function, the default grade of “Freshman” can be applied to the every student with a _.each function without worrying it might be applied to students who already have a grade property.
+But the newly added freshmen do not have the grade property. With the _.defaults function, the default grade of “Freshman” can be applied to the every student without worrying it might be applied to students who already have a grade property.
 
 When I run the example, the old students and alumni collections will be printed out first, and after running the newYear function, the new students and alumni collections will be printed out as well.
