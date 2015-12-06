@@ -1,5 +1,5 @@
 /*
-The functions I am going to demo are _.defaults, _.pick and _.tap from the object category of the Underscore
+The functions I am going to demo are _.defaults and _.pick from the object category of the Underscore
 module.
 
 Instead of checking whether the value of a property is undefined before giving value,
@@ -16,57 +16,52 @@ The returned object will only contain properties with the specified keys.
 */
 
 
-var _ = require('underscore')
+var _ = require('underscore');
 
 var students = [{Name: "John", Grade: "Senior", Gender: "Male"},
     {Name: "Paul", Grade: "Junior", Gender: "Male"},
     {Name: "Steve", Grade: "Freshman", Gender: "Male"},
-    {Name: "Nancy", Grade: "Sophomore", Gender: "Female"},
-    ];
+    {Name: "Nancy", Grade: "Sophomore", Gender: "Female"}];
 
-var freshmans = [{Name: "Jason", Gender: "Male"},
+var freshmen = [{Name: "Jason", Gender: "Male"},
     {Name: "Kim", Gender: "Female"},
     {Name: "Stan", Gender: "Male"},
     {Name: "Joyce", Gender: "Female"}];
 
-var alumi = [{Name: "Joe", Gender: "Male"}]
+var alumni = [{Name: "Joe", Gender: "Male"}]
 
 var newYear = function(){
 
     newGraduates = _.chain(students)
         .where({Grade: "Senior"})
-        .tap(function(students){console.log("number of Graduates: " + students.length)})
         .map(function(student){return (_.pick(student, "Name", "Gender"))})
         .value();
 
     newSeniors = _.chain(students)
         .where({Grade: "Junior"})
-        .tap(function(students){console.log("number of New Seniors: " + students.length)})
         .map(function(student){student.Grade = "senior"; return student})
         .value();
 
     newJuniors = _.chain(students)
         .where({Grade: "Sophomore"})
-        .tap(function(students){console.log("number of New Juniors: " + students.length)})
         .map(function(student){student.Grade = "Junior"; return student})
         .value();
 
     newSophomores = _.chain(students)
         .where({Grade: "Freshman"})
-        .tap(function(students){console.log("number of New Sophomores: " + students.length)})
         .map(function(student){student.Grade = "Sophomore"; return student})
         .value();
 
-    console.log("number of New Freshmans: " + freshmans.length)
+    console.log("number of New Freshmen: " + freshmen.length)
 
-    _.each(freshmans, function(freshman){_.defaults(freshman, {Grade: "Freshman"})});
+    alumni = _.union(alumni, newGraduates);
+    students = _.union(freshmen, newSophomores, newJuniors, newSeniors);
+    _.each(students, function(student){_.defaults(student, {Grade: "Freshman"})})
 
-    students = _.union(freshmans, newSophomores, newJuniors, newSeniors);
-    alumi = _.union(alumi, newGraduates);
 }
 
 console.log("old students: ", students);
-console.log("old alumi: ", alumi);
+console.log("old alumni: ", alumni);
 newYear();
 console.log("new students: ", students);
-console.log("new alumi: ", alumi);
+console.log("new alumni: ", alumni);
