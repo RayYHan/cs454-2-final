@@ -5,7 +5,9 @@ The idea behind my example is that at the beginning of each school year, the sta
 
 But as you can see here, the objects in the students collection have one extra property when comparing to the other two collections. This is where the _.pick and _.defaults functions come in.
 
-_.pick can construct an object with a subset of the properties from an existing object.
+_.pick constructs an object with a subset of the properties from an existing object.
+
+_.defaults apply default properties to an object only when the properties are undefined.
 
 The first chain extract the students who are originally seniors into a new collection that can be later added to the alumni collection. The _.pick function inside of the map function creates a new object for each senior without the grade property, which matches the format of objects inside the alumni collection.
 
